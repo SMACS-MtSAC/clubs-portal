@@ -1,7 +1,8 @@
-import exp from "constants";
+import "dotenv/config";
 import express from "express";
-
+import { NODE_ENV, PORT, MONGO_URI } from "./constants/env";
 const app = express();
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -10,6 +11,6 @@ app.get("/", (req, res) => {
   });
 });
 
-app.listen(4004, () => {
-  console.log(`Server running on port ${4004}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT} in ${NODE_ENV} environment`);
 });
