@@ -4,9 +4,9 @@
   "description": "This will be the backend server for web-for-clubs frontend projects. This will be the place where club officers will login and edit their events",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "npm run build && node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc"
+    "build": "rimraf ./dist && tsc"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +24,7 @@
     "@types/jsonwebtoken": "^9.0.9",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^22.13.5",
+    "rimraf": "^6.0.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.3"
   }
