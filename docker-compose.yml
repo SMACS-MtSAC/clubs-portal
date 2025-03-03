@@ -2,6 +2,8 @@ services:
   mongo:
     image: mongo
     restart: always
+    volumes: 
+      - db:/data/db
 
   mongo-express:
     image: mongo-express
@@ -43,5 +45,5 @@ services:
     tty: true
     command: npm run dev
 
-# volumes:
-#   db:
+volumes:
+  db:
