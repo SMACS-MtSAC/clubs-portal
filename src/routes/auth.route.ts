@@ -2,20 +2,14 @@ import { Router } from "express";
 import { registerHandler } from "../controllers/auth.controller";
 const authRoutes = Router();
 
-/**
- *  TODO:
- *      - Add the inside code that makes it work
- *      - Place them in a controller
- */
 authRoutes.post("/login", (req, res) => {
-  res.send("Post logina");
+  res.send("Post login");
 });
 
-/**
- * TODO:
- *      - Add the inside code that makes it work
- *      - Place them in a controller
- */
 authRoutes.post("/register", registerHandler);
+
+authRoutes.post("/change-password", (req, res) => {
+  res.send("Change Password");
+});
 
 export default authRoutes;

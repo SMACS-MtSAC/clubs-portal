@@ -16,21 +16,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", authRoutes);
-// app.post("/api/users", async (req, res) => {
-//   const { username, password } = req.body;
-
-//   try {
-//     const newUser = new UserModel({
-//       username,
-//       password,
-//     });
-
-//     const savedUser = await newUser.save();
-//     res.status(201).json(savedUser);
-//   } catch (error) {
-//     res.status(500).json({ message: `Error creating the user`, error: error });
-//   }
-// });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT} in ${NODE_ENV} environment`);
