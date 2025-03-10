@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { z } from "zod";
 import UserModel from "../models/user.model";
+import expressAsyncHandler from "express-async-handler";
 
 const passwordSchema = z.string().min(6);
 
@@ -18,8 +19,8 @@ const registerSchema = loginSchema
     path: ["confirmPassword"],
   });
 
-export const registerHandler = async (req: Request, res: Response) => {
-  try {
+export const registerHandler = expressAsyncHandler(
+  async (req: Request, res: Response) => {
     const request = registerSchema.parse({
       ...req.body,
     });
@@ -30,7 +31,5 @@ export const registerHandler = async (req: Request, res: Response) => {
 
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
-  } catch (error) {
-    res.status(500).json({ message: `Error creating the user`, error: error });
   }
-};
+);

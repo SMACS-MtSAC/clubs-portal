@@ -2,8 +2,8 @@ import "dotenv/config";
 import express from "express";
 import { NODE_ENV, PORT, MONGO_URI } from "./constants/env";
 import conntectToDatabase from "./config/db";
-import UserModel from "./models/user.model";
 import authRoutes from "./routes/auth.route";
+import { errorHandler, notFound } from "./middleware/error.middleware";
 
 const app = express();
 
@@ -16,6 +16,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", authRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT} in ${NODE_ENV} environment`);
