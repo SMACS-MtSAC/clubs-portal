@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { z } from "zod";
 import UserModel from "../models/user.model";
 import expressAsyncHandler from "express-async-handler";
+import generateToken from "../utils/jwt";
 
 const passwordSchema = z.string().min(6);
 
@@ -30,6 +31,11 @@ export const registerHandler = expressAsyncHandler(
     });
 
     const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+    if (savedUser) {
+      generateToken(res, savedUser._id);
+      res.status(201).json({
+        username: savedUser.username,
+      });
+    }
   }
 );

@@ -15,3 +15,4 @@ export const MONGO_URI_DEVELOPMENT = getEnv(
   "MONGO_URI_DEVELOPMENT",
   "mongodb://mongo:27017/db"
 );
+export const JWT_SECRET = getEnv("JWT_SECRET", "Development");
