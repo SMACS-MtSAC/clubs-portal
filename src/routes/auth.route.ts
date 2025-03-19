@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { registerHandler } from "../controllers/auth.controller";
+import {
+  authUser,
+  logoutUser,
+  registerHandler,
+} from "../controllers/auth.controller";
 const authRoutes = Router();
 
 authRoutes.post("/login", (req, res) => {
@@ -7,7 +11,8 @@ authRoutes.post("/login", (req, res) => {
 });
 
 authRoutes.post("/register", registerHandler);
-
+authRoutes.post("/auth", authUser);
+authRoutes.post("/logout", logoutUser);
 authRoutes.post("/change-password", (req, res) => {
   res.send("Change Password");
 });

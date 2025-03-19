@@ -3,3 +3,4 @@ dist
 *.ts
 *.map
 npm-debug.log
+mongo-data

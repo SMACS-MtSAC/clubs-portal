@@ -3,7 +3,7 @@ services:
     image: mongo
     restart: always
     volumes: 
-      - db:/data/db
+      - ./mongo-data:/data/db
 
   mongo-express:
     image: mongo-express
@@ -44,6 +44,3 @@ services:
     stdin_open: true
     tty: true
     command: npm run dev
-
-volumes:
-  db:

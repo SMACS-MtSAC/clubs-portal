@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/", authRoutes);
+app.use("/users", authRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

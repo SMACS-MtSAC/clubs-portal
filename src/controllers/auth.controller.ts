@@ -39,3 +39,30 @@ export const registerHandler = expressAsyncHandler(
     }
   }
 );
+
+export const authUser = expressAsyncHandler(async (req, res) => {
+  const { username, password } = req.body;
+  const user = await UserModel.findOne({ username });
+
+  if (user && (await user.matchPasswords(password))) {
+    generateToken(res, user._id);
+    res.status(201).json({
+      _id: user._id,
+      username: user.username,
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid username or password");
+  }
+});
+
+export const logoutUser = expressAsyncHandler(async (req, res) => {
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  res.status(200).json({
+    message: "Logged out",
+  });
+});
