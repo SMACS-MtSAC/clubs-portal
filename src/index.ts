@@ -5,6 +5,7 @@ import conntectToDatabase from "./config/db";
 import { errorHandler, notFound } from "./middleware/error.middleware";
 import authRoutes from "./routes/auth.route";
 import clubRoutes from "./routes/club.route";
+import eventRoutes from "./routes/event.route";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/clubs", clubRoutes);
+app.use("/api/events", eventRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

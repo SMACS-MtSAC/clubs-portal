@@ -93,3 +93,17 @@ export const deleteClub = expressAsyncHandler(
     res.json({ message: "Club deleted successfully" });
   }
 );
+
+export const getClubEvents = expressAsyncHandler(
+  async (req: Request, res: Response) => {
+    const club = await ClubModel.findById(req.params.id);
+
+    if (!club) {
+      res.status(404);
+      throw new Error("Club not found");
+    }
+
+    const events = await club.getEvents();
+    res.json(events);
+  }
+);
