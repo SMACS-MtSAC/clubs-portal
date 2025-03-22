@@ -1,6 +1,7 @@
-node_modules
-dist
-*.ts
-*.map
-npm-debug.log
-mongo-data
+./backend/node_modules
+./backend/dist
+./backend/*.ts
+./backend/*.map
+./backend/mongo-data
+
+./frontend/node_modules
