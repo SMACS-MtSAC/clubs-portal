@@ -1,4 +1,5 @@
 import { ErrorRequestHandler, RequestHandler } from "express";
+import { Request, Response, NextFunction } from "express";
 
 const notFound: RequestHandler = (req, res, next) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
@@ -6,20 +7,16 @@ const notFound: RequestHandler = (req, res, next) => {
   next(error);
 };
 
-const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  let message = err;
-
-  // If Mongoose not found error, set to 404 and change message
-  if (err.name === "CastError" && err.kind === "ObjectId") {
-    statusCode = 404;
-    message = "Resource not found";
-  }
-
+const errorHandler = (
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode).json({
-    // message: message,
-    // stack: process.env.NODE_ENV === "production" ? null : err.stack,
-    message,
+    message: err.message,
+    stack: process.env.NODE_ENV === "production" ? null : err.stack,
   });
 };
 

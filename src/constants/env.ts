@@ -16,3 +16,5 @@ export const MONGO_URI_DEVELOPMENT = getEnv(
   "mongodb://mongo:27017/db"
 );
 export const JWT_SECRET = getEnv("JWT_SECRET", "Development");
+export const ADMIN_PASSKEY1 = getEnv("ADMIN_PASSKEY1", "pass1");
+export const ADMIN_PASSKEY2 = getEnv("ADMIN_PASSKEY2", "pass2");
