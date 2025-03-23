@@ -12,17 +12,31 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  console.log("Headers:", req.headers);
+  console.log("Body:", req.body);
+  next();
+});
+
 // Middleware
+app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
-    origin: "*",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 
-app.use(express.json());
-app.use(cookieParser());
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/clubs", clubRoutes);
+app.use("/api/events", eventRoutes);
+app.use("/api/health", healthRoutes);
 
 app.get("/", (req, res) => {
   res.send({
@@ -30,11 +44,7 @@ app.get("/", (req, res) => {
   });
 });
 
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/clubs", clubRoutes);
-app.use("/api/events", eventRoutes);
-app.use("/api/health", healthRoutes);
+// Error handling
 app.use(notFound);
 app.use(errorHandler);
 

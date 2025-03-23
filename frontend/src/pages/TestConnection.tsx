@@ -29,7 +29,7 @@ const TestConnectionPage = () => {
         {data && <div className="p-2 rounded bg-green-100 text-green-800">{data.status}</div>}
         {error && <div className="p-2 rounded bg-red-100 text-red-800">{error}</div>}
         <div className="mt-2 text-sm text-gray-600">
-          <div>Testing URL: http://localhost:5000/api/health</div>
+          <div>Testing URL: {import.meta.env.VITE_API_URL}/health</div>
         </div>
       </div>
     </div>
