@@ -13,19 +13,20 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 // Request logging middleware
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-  console.log("Headers:", req.headers);
-  console.log("Body:", req.body);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+//   console.log("Headers:", req.headers);
+//   console.log("Body:", req.body);
+//   next();
+// });
 
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.ALLOWED_ORIGINS?.split(",") || [],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
