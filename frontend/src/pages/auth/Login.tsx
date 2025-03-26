@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { AxiosError } from "axios";
 import { useAuth } from "../../contexts/useAuth";
 import api from "../../services/api";
 const Login = () => {
