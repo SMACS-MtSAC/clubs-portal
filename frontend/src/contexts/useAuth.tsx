@@ -7,7 +7,6 @@ import {
 } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
-import { AxiosError } from "axios";
 
 interface User {
   id: string;
