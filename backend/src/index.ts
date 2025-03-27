@@ -24,22 +24,32 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-console.log(process.env.ALLOWED_ORIGINS?.split(","));
-app.use(
-  cors({
-    // origin: process.env.ALLOWED_ORIGINS?.split(",") || [],
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
+var corsOptionsDelegate = function (req: any, callback: any) {
+  var corsOptions;
+  if (allowedOrigins.indexOf(req.header("Origin")) !== -1) {
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false }; // disable CORS for this request
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
+};
+// console.log(process.env.ALLOWED_ORIGINS?.split(","));
+// app.use(
+//   cors({
+//     // origin: process.env.ALLOWED_ORIGINS?.split(",") || [],
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true,
+//   })
+// );
 
 // Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/clubs", clubRoutes);
-app.use("/api/events", eventRoutes);
-app.use("/api/health", healthRoutes);
+app.use("/api/auth", cors(corsOptionsDelegate), authRoutes);
+app.use("/api/clubs", cors(corsOptionsDelegate), clubRoutes);
+app.use("/api/events", cors(corsOptionsDelegate), eventRoutes);
+app.use("/api/health", cors(corsOptionsDelegate), healthRoutes);
 
 app.get("/", (req, res) => {
   res.send({
